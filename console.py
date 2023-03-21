@@ -114,40 +114,38 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Command to create an object of a Class"""
-
+        """ Create an object of any class"""
         if not args:
             print("** class name missing **")
             return
-        all_data = args.split()
-        print(all_data)
-        class_name = all_data[0]
-        command = ""
-        if (class_name not in HBNBCommand.classes):
+        args = args.split()
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_class = HBNBCommand.classes[class_name]()
-        # brake down the rest items in the all_data list
-        for item in all_data[1:]:
-            # child[0] becomes the property name
-            child = item.split("=")
-            if child[1][0] == '"':
-                child[1] = child[1].replace('\\"', '"')
-                child[1] = child[1].replace("_", " ")
-                child[1] = child[1].strip('"')
-                setattr(new_class, child[0], child[1])
-
-            elif '.' in child[1] and child[1].replace('.', '').isnumeric():
-                setattr(new_class, child[0], float(child[1]))
-
-            elif (child[1].isnumeric()):
-                setattr(new_class, child[0], int(child[1]))
-
+        _new = HBNBCommand.classes[args[0]]()
+        for i in range(1, len(args)):
+            attr = args[i].split("=")
+            k = attr[0]
+            v = ""
+            if attr[1][0] == '\"':
+                v = str(attr[1][1:-1].replace('"', '\"').replace("_", " "))
+            else:
+                if '.' in attr[1]:
+                    try:
+                        v = float(attr[1])
+                    except:
+                        pass
+                else:
+                    try:
+                        v = int(attr[1])
+                    except:
+                        pass
+            if v != "":
+                setattr(_new, k, v)
             else:
                 pass
-
-        new_class.save()
-        print(new_class.id)
+        _new.save()
+        print(_new.id)
 
     def help_create(self):
         """ Help information for the create method """
