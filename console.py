@@ -123,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
         print(all_data)
         class_name = all_data[0]
         command = ""
-        if(class_name not in HBNBCommand.classes):
+        if (class_name not in HBNBCommand.classes):
             print("** class doesn't exist **")
             return
         new_class = HBNBCommand.classes[class_name]()
@@ -140,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
             elif '.' in child[1] and child[1].replace('.', '').isnumeric():
                 setattr(new_class, child[0], float(child[1]))
 
-            elif(child[1].isnumeric()):
+            elif (child[1].isnumeric()):
                 setattr(new_class, child[0], int(child[1]))
 
             else:
