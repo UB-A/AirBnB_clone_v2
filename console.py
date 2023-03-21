@@ -133,12 +133,12 @@ class HBNBCommand(cmd.Cmd):
                 if '.' in attr[1]:
                     try:
                         v = float(attr[1])
-                    except:
+                    except Exception:
                         pass
                 else:
                     try:
                         v = int(attr[1])
-                    except:
+                    except Exception:
                         pass
             if v != "":
                 setattr(_new, k, v)
