@@ -9,3 +9,5 @@ fab -f 3-deploy_web_static.py deploy -i my_ssh_private_key -u ubuntu
 ls -ltr versions
 5. command to delete archives with specifivation of number to delete
 fab -f 100-clean_web_static.py do_clean:number=2 -i my_ssh_private_key -u ubuntu > /dev/null 2>&1
+6. puppet command that sets up your web servers for the deployment of web_static
+puppet apply 101-setup_web_static.pp
